@@ -1,0 +1,35 @@
+#cast {
+  width:100%;
+  min-height:900px;
+  height:auto !important;
+  border: 1px solid green;
+  list-style-type:none;
+}
+#cast li {
+  float:left;
+  width:25%;
+  margin-left: 1%;
+}
+.actorWrapper {
+  min-height:1px;
+  position:relative;
+  cursor:pointer;
+  background:green;
+}
+
+.actorWrapper img {
+  position:absolute;
+  width:100%;
+  left:0;
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+}
+
+.actorWrapper .bottom {
+  box-shadow: 5px 5px 10px #888888;
+}
+.actorWrapper .top {
+  opacity:0;
+}
