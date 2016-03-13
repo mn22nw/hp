@@ -1,4 +1,4 @@
-var fileextension = ".png";
+var fileExtension = ".png";
 var originalCast = {
 	actors: []
 };
@@ -21,31 +21,6 @@ var renderCastImages = function() {
 	//$("body").append("<img src='" + dir + filename + "'>");
 }
 
-
-// get all the images that ends with .png
-var getOriginalCast = function(dir) {
-	 $.ajax({
-	    url: dir,
-	    success: function (data) {	   	
-	        //list all .png file names in the page
-	        $(data).find("a:contains(" + fileextension + ")").each(function () {
-	            var filename = this.href.replace(window.location.host, "").replace("http://", "");
-	            filename = filename.replace("harry-potter", "").replace(/\//g, '')   //http://stackoverflow.com/a/4566789   
-
-	            //create an object called actor        
-	            var actor = new Actor(filename.replace(fileextension, '') , dir + filename)
-	            console.log(actor.name, filename)
-	            originalCast.actors.push(actor)
-	            console.log(originalCast)
-	            console.log('uuug' , originalCast.actors)
-	        });
-	    }
-	});
-
-}
-
-
-
 // GETS ALL THE CAST
 function getAllCast() {
 
@@ -59,16 +34,16 @@ function getAllCast() {
 	    url: dir1,
 	    success: function (data) {	   	
 	        //list all .png file names in the page
-	        $(data).find("a:contains(" + fileextension + ")").each(function () {
+	        $(data).find("a:contains(" + fileExtension + ")").each(function () {
 	            var filename = this.href.replace(window.location.host, "").replace("http://", "");
 	            filename = filename.replace("harry-potter", "").replace(/\//g, '')   //http://stackoverflow.com/a/4566789   
-
+	            //remove hyphens
+	            var name = filename.replace(/-/g, ' ').replace(fileExtension, '')
+	            var imgUrl =  dir1 + "/"  + filename
 	            //create an object called actor        
-	            var actor = new Actor(filename.replace(fileextension, '') , dir1 + filename)
-	            console.log(actor.name, filename)
+	            var actor = new Actor(name , imgUrl )
 	            originalCast.actors.push(actor)
-	            console.log(originalCast)
-	            console.log('uuug' , originalCast.actors)
+
 	        });
 	    }
 	}),
@@ -78,15 +53,14 @@ function getAllCast() {
 	    url: dir2,
 	    success: function (data) {	   	
 	        //list all .png file names in the page
-	        $(data).find("a:contains(" + fileextension + ")").each(function () {
+	        $(data).find("a:contains(" + fileExtension + ")").each(function () {
 	            var filename = this.href.replace(window.location.host, "").replace("http://", "");
 	            filename = filename.replace("harry-potter", "").replace(/\//g, '')   //http://stackoverflow.com/a/4566789   
 
 	            //create an object called actor        
-	            var actor = new Actor(filename.replace(fileextension, '') , dir2 + filename)
+	            var actor = new Actor(filename.replace(fileExtension, '') , dir2 + filename)
 	            console.log(actor.name, filename)
 	            newCast.actors.push(actor)
-	            console.log(originalCast)
 	            console.log('uuug' , newCast.actors)
 	        });
 	    }
@@ -94,33 +68,16 @@ function getAllCast() {
 
 	).done(function(  ) {
 		 console.log('ITesready' , originalCast.actors)
+		 renderCastImages();
     // Everything OK
 
 }).fail(function() {
 
     // One of the sources is not available
-
+    console.log('One of the sources is not available');
 });
 };
 
-/*
-	.then(function() {
-
-	  // All is ready now, so...
-
-	  // Add all the images to the page
-	  console.log('ITesready' , originalCast.actors)
-	  //renderCastImages()
-
-	});
-
-} 
-*/
-	//var str = "How are you doing today?";
-	//var res = str.split(" ");
-
-
-//need to call renderCastImages after sucess ajax
 
 	//var str = "How are you doing today?";
 	//var res = str.split(" ");
